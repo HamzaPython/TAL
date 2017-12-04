@@ -1,0 +1,3 @@
+# TAL
+we are going to evaluate machine translations by different automatics metrics like F-measure, BLEU ...
+hope you learn something in this project, have fun!
