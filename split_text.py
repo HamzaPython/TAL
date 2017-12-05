@@ -19,4 +19,11 @@ class split_text():
         # here we split each sentence to multiple words
         return words
 
-    def __str__():
+    ''' this 2 methods (str and repr) are
+    used in this code to increase readability '''
+
+    def __str__(self):
+        return "this is an object from split_text class"
+
+    def __repr__(self):
+        return "split_text({0.text})".format(self)
