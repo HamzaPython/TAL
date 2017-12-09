@@ -8,8 +8,9 @@ class split_text_class():
 
     def spliting_text(self, text=''):
         ''' this method is used to split more than 1 sentense (text)'''
-        pattern = r'[^\n\t\;\:\?\!\,\.]+'
-
+        punctuations = ';:?!,.'
+        spaces = r'\n\t'
+        pattern = r'[^{}+{}]+'.format(punctuations, spaces)
         # here we will split the text to multiple sentenses:
         sentenses = regexp_tokenize(text, pattern)
 
