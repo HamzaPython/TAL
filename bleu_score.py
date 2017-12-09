@@ -3,41 +3,57 @@ from split_text import split_text_class
 
 
 class bleu_score_class():
-    p = split_text_class()
+    _p = split_text_class(
+    )  # this is an object for spliting all texts that we need it to split
 
     def __init__(self, hypothese='', *references):
+        ''' each bleu_score_class object has hypothese and references '''
         self.references = references
         self.hypothese = hypothese
 
     def calculate_bleu_score(self):
+        ''' this is the main method to calculate the bleu score '''
         nb_references = len(self.references)
-        if nb_references >= 1:
-            lenght = len(bleu_score_class.p.spliting_text(self.references[0]))
-
+        # calculate the number of reference
+        if nb_references > 0:
+            lenght = len(bleu_score_class._p.spliting_text(self.references[0]))
+            # calculate the number of sentences
             if lenght == 1:
+                ''' 1 or more references with 1 sentence: '''
                 ref = []
                 for reference in self.references:
-                    splited_reference = bleu_score_class.p.spliting_sentence(
+                    # split each one of the references
+                    splited_reference = bleu_score_class._p.spliting_sentence(
                         reference)
                     ref.append(splited_reference)
-                hypo = bleu_score_class.p.spliting_sentence(self.hypothese)
-                print(ref)
-                print(hypo)
+                hypo = bleu_score_class._p.spliting_sentence(self.hypothese)
+                # split the hypothese
                 bleu_score = sentence_bleu(ref, hypo)
+                # calculate the sentence-level bleu score
                 return bleu_score
             elif lenght > 1:
+                ''' 1 or more references with more than 1 sentence: '''
                 ref = []
                 for reference in self.references:
-                    splited_reference = bleu_score_class.p.spliting_text(
+                    # split each one of the references
+                    splited_reference = bleu_score_class._p.spliting_text(
                         reference)
                     ref.append(splited_reference)
                 ordered_references = zip(*ref)
                 ordered_references = list(map(list, ordered_references))
-                hypo = bleu_score_class.p.spliting_text(self.hypothese)
-                print(ordered_references)
-                print(hypo)
+                # here we sort the sentences in way that each sentence
+                # of hypothese have 1 or more reference sentences
+                hypo = bleu_score_class._p.spliting_text(self.hypothese)
+                # split the hypothese
                 bleu_score = corpus_bleu(ordered_references, hypo)
+                # calculate the corpus-level bleu score
                 return bleu_score
+            else:
+                # references = ''
+                return 0
+        else:
+            # references = []
+            return 0
 
 
 # b = bleu_score_class('my name is hamza jamil.', 'my name is hamza jamal,',
