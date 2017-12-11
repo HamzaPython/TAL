@@ -2,9 +2,9 @@ from nltk.tokenize import regexp_tokenize, wordpunct_tokenize
 
 
 class split_text_class():
-    def __init__(self, hypothese='', references=''):
+    def __init__(self, hypothese='', *references):
         ''' each metrics has an hypothese and references '''
-        self.references = references
+        self.references = references[0]
         self.hypothese = hypothese
 
     def spliting_sentence(self, text=''):
@@ -54,7 +54,7 @@ class split_text_class():
                 # of hypothese have 1 or more reference sentences
                 hypo = self.spliting_text(self.hypothese)
                 # split the hypothese
-                return hypo, ref, isinstance(hypo[0], str)
+                return hypo, ordered_references, isinstance(hypo[0], str)
             else:
                 # references = ''
                 return self.hypothese, None, False

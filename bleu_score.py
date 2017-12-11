@@ -34,8 +34,8 @@ class bleu_score_class():
 # print(b.calculate_bleu_score())
 # ------> I have to add Smoothing, multibleu and auto reweigh techniques
 # ----------------------------------2----------------------------------
-# b = bleu_score_class('my name is hamza jamal',
-#                      'my name is hamza jamali,', 'my name is hamza jamalo.')
+# b = bleu_score_class('my name is hamza jamal,', 'my name is hamza jamali,',
+#                      'my name is hamza jamalo.')
 # print(b.calculate_bleu_score())
 # ------> It works good
 # ----------------------------------3----------------------------------
