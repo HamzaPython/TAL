@@ -14,9 +14,6 @@ class nist_score_class():
     def calculate_nist_score(self):
         ''' this is the main method to calculate the nist score '''
         hypo, ref, has_one_sentence = self._p.split_references_hypothesis()
-        print(hypo)
-        print(ref)
-        print(has_one_sentence)
         if ref is None:
             return 0
         elif has_one_sentence:
@@ -40,8 +37,7 @@ class nist_score_class():
 #
 # ------> It works good
 # ----------------------------------2----------------------------------
-# n = nist_score_class('my name is hamza jamal', 'my name is hamza jamali,',
-#                      'my name is hamza jamalo.')
+# n = nist_score_class('my name is hamza jamal', 'my name is hamza jamal')
 # print(n.calculate_nist_score())
 # ------> It works good too
 # ----------------------------------3----------------------------------

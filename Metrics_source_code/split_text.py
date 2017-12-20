@@ -72,7 +72,7 @@ class split_text_class():
         return "split_text_class({0.text})".format(self)
 
 
-# p = split_text_class('my name is hamza jamil.', 'my name is hamza jamilo.')
+# p = split_text_class('my name is hamza jamil. I m 22 years old', 'my name is hamza jamilo. my age is 22 years old', 'my name is khalid. my age is 23 years old')
 # hypo, ref, has_one_sentence = p.split_references_hypothesis()
 # print(hypo)
 # print(ref)

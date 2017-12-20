@@ -28,6 +28,8 @@ class bleu_score_class():
             return bleu_score
 
 
+# p = bleu_score_class('my name is hamza jamil. I m 22 years old', 'my name is hamza jamilo. my age is 22 years old', 'my name is khalid. my age is 23 years old')
+# print(p.calculate_bleu_score())
 # -------------------------------Exemples:-----------------------------
 # ----------------------------------1----------------------------------
 # b = bleu_score_class('my name', 'my name is hamza')
