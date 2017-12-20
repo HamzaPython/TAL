@@ -12,8 +12,8 @@ def which_os():
         sys.path.append('/home/hamza/Bureau/TAL/Metrics_source_code')
         initialdir = "/home/hamza/Bureau"
     elif os_name == 'Windows':
-        sys.path.append('/home/hamza/Bureau/TAL/Metrics_source_code')
-        initialdir = "/home/hamza/Bureau"
+        sys.path.append(r'C:\Users\Hamza\Desktop\TAL\Metrics_source_code')
+        initialdir = r"C:\Users\Hamza\Desktop"
     return initialdir
 
 
