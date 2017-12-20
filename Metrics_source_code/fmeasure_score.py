@@ -3,29 +3,29 @@ from split_text import split_text_class
 
 
 class fmeasure_score_class():
-    def __init__(self, hypothese='', *references):
-        ''' each bleu_score_class object has hypothese and references '''
+    def __init__(self, hypothesis='', *references):
+        ''' each bleu_score_class object has hypothesis and references '''
         self.references = references
-        self.hypothese = hypothese
-        self._p = split_text_class(hypothese, references)
+        self.hypothesis = hypothesis
+        self._p = split_text_class(hypothesis, references)
         # _p is a private attribut for spliting
         # all texts that we need it to split
 
-    def sentence_fmeasure(self, references, hypothese):
+    def sentence_fmeasure(self, references, hypothesis):
         fmeasure_scores = []
-        hypothese_set = set(hypothese)
+        hypothesis_set = set(hypothesis)
         for reference in references:
             reference_set = set(reference)
-            fmeasure_score = f_measure(reference_set, hypothese_set)
-            # we calculate f_measure(set(each_reference), set(hypothese)) score
+            fmeasure_score = f_measure(reference_set, hypothesis_set)
+            # we calculate f_measure(set(each_reference), set(hypothesis)) score
             fmeasure_scores.append(fmeasure_score)
         fmeasure_final_score = max(fmeasure_scores)
-        # we calculate f_measure(set(closest_reference), set(hypothese)) score
+        # we calculate f_measure(set(closest_reference), set(hypothesis)) score
         return fmeasure_final_score
 
-    def corpus_fmeasure(self, references, hypothese):
+    def corpus_fmeasure(self, references, hypothesis):
         fmeasure_score_sentences = []
-        for hypo, ref in zip(hypothese, references):
+        for hypo, ref in zip(hypothesis, references):
             fmeasure_score_sentence = self.sentence_fmeasure(ref, hypo)
             fmeasure_score_sentences.append(fmeasure_score_sentence)
         fmeasure_final_score = sum(fmeasure_score_sentences) / len(

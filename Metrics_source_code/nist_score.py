@@ -3,11 +3,11 @@ from split_text import split_text_class
 
 
 class nist_score_class():
-    def __init__(self, hypothese='', *references):
-        ''' each nist_score_class object has hypothese and references '''
+    def __init__(self, hypothesis='', *references):
+        ''' each nist_score_class object has hypothesis and references '''
         self.references = references
-        self.hypothese = hypothese
-        self._p = split_text_class(hypothese, references)
+        self.hypothesis = hypothesis
+        self._p = split_text_class(hypothesis, references)
         # _p is a private attribut for spliting
         # all texts that we need it to split
 

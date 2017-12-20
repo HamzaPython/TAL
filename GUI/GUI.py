@@ -63,13 +63,13 @@ class gui_class():
             text="references:",
             font="arial 12 bold",
             background="#A9F5A9")
-        self.hypothese_label = Label(
+        self.hypothesis_label = Label(
             master=self.frame_1,
-            text="hypothese:",
+            text="hypothesis:",
             font="arial 12 bold",
             background="#A9F5A9")
         self.path_reference = Entry(master=self.frame_1)
-        self.path_hypothese = Entry(master=self.frame_1)
+        self.path_hypothesis = Entry(master=self.frame_1)
         self.import_reference_button = Button(
             master=self.frame_1,
             text='...',
@@ -77,22 +77,22 @@ class gui_class():
             width=1,
             command=lambda: self.importfile(self.path_reference, "reference"),
             font="system 10 bold")
-        self.import_hypothese_button = Button(
+        self.import_hypothesis_button = Button(
             master=self.frame_1,
             text='...',
             height=1,
             width=1,
-            command=lambda: self.importfile(self.path_hypothese, "hypothese"),
+            command=lambda: self.importfile(self.path_hypothesis, "hypothesis"),
             font="system 10 bold")
         self.clear_reference_button = Button(
             master=self.frame_1,
             text='Clear',
             command=lambda: self.clear(self.path_reference),
             font="system 10 bold")
-        self.clear_hypothese_button = Button(
+        self.clear_hypothesis_button = Button(
             master=self.frame_1,
             text='Clear',
-            command=lambda: self.clear(self.path_hypothese),
+            command=lambda: self.clear(self.path_hypothesis),
             font="system 10 bold")
         ''' widgets in frame_2 '''
         self.radiobutton_title = Label(
@@ -145,10 +145,10 @@ class gui_class():
         self.path_reference.grid(row=0, column=2)
         self.import_reference_button.grid(row=0, column=4, padx=2, pady=4)
         self.clear_reference_button.grid(row=0, column=6)
-        self.hypothese_label.grid(row=1, column=0, sticky=W, padx=4, pady=2)
-        self.path_hypothese.grid(row=1, column=2)
-        self.import_hypothese_button.grid(row=1, column=4, padx=2, pady=4)
-        self.clear_hypothese_button.grid(row=1, column=6)
+        self.hypothesis_label.grid(row=1, column=0, sticky=W, padx=4, pady=2)
+        self.path_hypothesis.grid(row=1, column=2)
+        self.import_hypothesis_button.grid(row=1, column=4, padx=2, pady=4)
+        self.clear_hypothesis_button.grid(row=1, column=6)
         self.frame_ipadding_4.grid(rowspan=2, column=1)
         self.frame_ipadding_5.grid(rowspan=2, column=3)
         self.frame_ipadding_4.grid(rowspan=2, column=5)
@@ -166,7 +166,7 @@ class gui_class():
         self.clear_all_button.pack(side=LEFT)
 
     def importfile(self, path_cell, type):
-        ''' import references and hypothese files '''
+        ''' import references and hypothesis files '''
         path_name = filedialog.askopenfilename(
             initialdir=self.initialdir,
             title="Select {} file".format(type),
@@ -175,8 +175,8 @@ class gui_class():
         path_cell.insert(0, path_name)
         path_cell.configure(state='readonly')
 
-    def open_references_hypothese(self):
-        ''' extract text from references and hypothese files '''
+    def open_references_hypothesis(self):
+        ''' extract text from references and hypothesis files '''
         while True:
             references = []
             path_reference_string = self.path_reference.get()
@@ -211,57 +211,57 @@ class gui_class():
                     break
 
         while True:
-            path_hypothese_string = self.path_hypothese.get()
-            if is_zipfile(path_hypothese_string):
+            path_hypothesis_string = self.path_hypothesis.get()
+            if is_zipfile(path_hypothesis_string):
                 try:
-                    with zipfile(path_hypothese_string) as my_zipfile:
+                    with zipfile(path_hypothesis_string) as my_zipfile:
                         files = my_zipfile.namelist()
                         nb_files = len(files)
                         if nb_files > 1:
                             showerror("Error",
-                                      "There is more then 1 hypothese file!!")
-                            self.importfile(self.path_hypothese, "hypothese")
+                                      "There is more then 1 hypothesis file!!")
+                            self.importfile(self.path_hypothesis, "hypothesis")
                         else:
                             try:
                                 with my_zipfile.open(txtfile) as f:
-                                    hypothese = f.read()
+                                    hypothesis = f.read()
                             except IOError:
                                 showerror("Error", "Please use valide files")
-                                self.importfile(self.path_hypothese,
-                                                "hypothese")
+                                self.importfile(self.path_hypothesis,
+                                                "hypothesis")
                             else:
                                 break
                 except (BadZipFile, LargeZipFile):
                     showerror("Error", "Please use valide zip")
-                    self.importfile(self.path_hypothese, "hypothese")
+                    self.importfile(self.path_hypothesis, "hypothesis")
                 else:
                     break
 
             else:
                 try:
-                    with open(path_hypothese_string) as f:
-                        hypothese = f.read()
+                    with open(path_hypothesis_string) as f:
+                        hypothesis = f.read()
                 except IOError:
                     showerror("Error", "Please use valide file")
-                    self.importfile(self.path_hypothese, "hypothese")
+                    self.importfile(self.path_hypothesis, "hypothesis")
                 else:
                     break
-        return references, hypothese
+        return references, hypothesis
 
     def calcul_score(self):
-        references, hypothese = self.open_references_hypothese()
+        references, hypothesis = self.open_references_hypothesis()
         v = self.variable.get()
         if v == 1:
-            f = fmeasure_score.fmeasure_score_class(hypothese, *references)
+            f = fmeasure_score.fmeasure_score_class(hypothesis, *references)
             score = f.calculate_fmesure_score()
         elif v == 2:
-            b = bleu_score.bleu_score_class(hypothese, *references)
+            b = bleu_score.bleu_score_class(hypothesis, *references)
             score = b.calculate_bleu_score()
         elif v == 3:
-            n = nist_score.nist_score_class(hypothese, *references)
+            n = nist_score.nist_score_class(hypothesis, *references)
             score = n.calculate_nist_score()
         elif v == 4:
-            w = wer_score.wer_score_class(hypothese, *references)
+            w = wer_score.wer_score_class(hypothesis, *references)
             score = w.calculate_wer_score()
         else:
             showwarning("Warning", "You must choose one of the algorithms")
@@ -269,14 +269,14 @@ class gui_class():
         self.display_score.configure(text=str(round(score, 2)))
 
     def clear(self, path_cell):
-        ''' clear path_reference and path_hypothese labels '''
+        ''' clear path_reference and path_hypothesis labels '''
         path_cell.configure(state=NORMAL)
         path_cell.delete(0, END)
 
     def clear_all(self):
-        ''' clear path_reference, path_hypothese and display_score labels '''
+        ''' clear path_reference, path_hypothesis and display_score labels '''
         self.clear(self.path_reference)
-        self.clear(self.path_hypothese)
+        self.clear(self.path_hypothesis)
         self.display_score.configure(text="0")
 
 
@@ -284,7 +284,6 @@ def main():
     root = Tk()
     root.title("Notre Application")
     root.geometry("500x200+350+50")
-    root.configure(background="white")
     app = gui_class(root, which_os())
     root.mainloop()
 

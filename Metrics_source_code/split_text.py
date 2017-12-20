@@ -2,26 +2,26 @@ from nltk.tokenize import regexp_tokenize, wordpunct_tokenize
 
 
 class split_text_class():
-    def __init__(self, hypothese='', *references):
-        ''' each metrics has an hypothese and references '''
+    def __init__(self, hypothesis='', *references):
+        ''' each metrics has an hypothesis and references '''
         self.references = references[0]
-        self.hypothese = hypothese
+        self.hypothesis = hypothesis
 
     def spliting_sentence(self, text=''):
-        ''' this method is used to split just 1 sentense '''
+        ''' this method is used to split just 1 sentence '''
         return wordpunct_tokenize(text)
 
     def spliting_text(self, text=''):
-        ''' this method is used to split more than 1 sentense (text)'''
+        ''' this method is used to split more than 1 sentence (text)'''
         punctuations = ';:?!,.'
         spaces = r'\n\t'
         pattern = r'[^{}+{}]+'.format(punctuations, spaces)
-        # here we will split the text to multiple sentenses:
-        sentenses = regexp_tokenize(text, pattern)
+        # here we will split the text to multiple sentences:
+        sentences = regexp_tokenize(text, pattern)
 
         # here we will split each sentence to multiple words:
         words = list(
-            map(lambda sentense: wordpunct_tokenize(sentense), sentenses))
+            map(lambda sentence: wordpunct_tokenize(sentence), sentences))
         return words
 
     def split_references_hypothesis(self):
@@ -38,8 +38,8 @@ class split_text_class():
                     # split each one of the references
                     splited_reference = self.spliting_sentence(reference)
                     ref.append(splited_reference)
-                hypo = self.spliting_sentence(self.hypothese)
-                # split the hypothese
+                hypo = self.spliting_sentence(self.hypothesis)
+                # split the hypothesis
                 return hypo, ref, isinstance(hypo[0], str)
             elif lenght > 1:
                 ''' 1 or more references with more than 1 sentence: '''
@@ -51,16 +51,16 @@ class split_text_class():
                 ordered_references = zip(*ref)
                 ordered_references = list(map(list, ordered_references))
                 # here we sort the sentences in way that each sentence
-                # of hypothese have 1 or more reference sentences
-                hypo = self.spliting_text(self.hypothese)
-                # split the hypothese
+                # of hypothesis have 1 or more reference sentences
+                hypo = self.spliting_text(self.hypothesis)
+                # split the hypothesis
                 return hypo, ordered_references, isinstance(hypo[0], str)
             else:
                 # references = ''
-                return self.hypothese, None, False
+                return self.hypothesis, None, False
         else:
             # references = []
-            return self.hypothese, None, False
+            return self.hypothesis, None, False
 
     ''' this 2 methods (str and repr) are
     used in this code to increase readability '''
