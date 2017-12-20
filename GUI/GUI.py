@@ -21,6 +21,7 @@ which_os()
 import fmeasure_score
 import bleu_score
 import nist_score
+import wer_score
 
 
 class gui_class():
@@ -260,7 +261,8 @@ class gui_class():
             n = nist_score.nist_score_class(hypothese, *references)
             score = n.calculate_nist_score()
         elif v == 4:
-            pass  #WER
+            w = wer_score.wer_score_class(hypothese, *references)
+            score = w.calculate_wer_score()
         else:
             showwarning("Warning", "You must choose one of the algorithms")
             score = 0
