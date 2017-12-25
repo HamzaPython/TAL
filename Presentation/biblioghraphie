@@ -1,0 +1,17 @@
+- machine translation evaluation (sara stymne)
+1- Tokenisation:
+- http://www.nltk.org/api/nltk.tokenize.html
+
+2- F-measure:
+- http://www.nltk.org/_modules/nltk/metrics/scores.html
+
+3- Bleu:
+- BLEU : a Method for Automatic Evaluation of Machine Translation (Kishore Papineni, Salim Roukos, Todd Ward, and Wei-Jing Zhu)
+- A Systematic Comparison of Smoothing Techniques for Sentence-Level BLEU (Boxing Chen and Colin Cherry)
+- http://www.nltk.org/_modules/nltk/translate/bleu_score.html
+- https://github.com/nltk/nltk/issues/1838
+
+4- Nist:
+- Automatic Evaluation of Machine Translation Quality Using N-gram Co-Occurrence Statistics (George Doddington)
+http://www.nltk.org/_modules/nltk/translate/nist_score.html
+
