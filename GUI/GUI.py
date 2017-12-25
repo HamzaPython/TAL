@@ -3,25 +3,42 @@ from tkinter import *
 from tkinter.messagebox import showerror, showwarning
 from zipfile import *
 import sys
-import platform
+from pathlib import Path, PurePath
 
 
-def which_os():
-    os_name = platform.system()
-    if os_name == 'Linux':
-        sys.path.append('/home/hamza/Bureau/TAL/Metrics_source_code')
-        initialdir = "/home/hamza/Bureau"
-    elif os_name == 'Windows':
-        sys.path.append(r'C:\Users\Hamza\Desktop\TAL\Metrics_source_code')
-        initialdir = r"C:\Users\Hamza\Desktop"
+def add_path():
+    ''' recognize the algorithm's imports'''
+    path_string = str(Path(__file__).resolve())
+    current_path = PurePath(path_string)
+    TAL_folder = current_path.parents[1]
+    TAL_folder_string = str(TAL_folder)
+    code_folder = TAL_folder.joinpath('Metrics_source_code')
+    code_folder_string = str(code_folder)
+
+    sys.path.append(code_folder_string)
+    initialdir = TAL_folder_string
+
+    import fmeasure_score
+    import bleu_score
+    import nist_score
+    import wer_score
+
     return initialdir
 
 
-which_os()
-import fmeasure_score
-import bleu_score
-import nist_score
-import wer_score
+add_path()
+
+# def which_os():
+#     import platform
+#     os_name = platform.system()
+#     if os_name == 'Linux':
+#         sys.path.append('/home/hamza/Bureau/TAL/Metrics_source_code')
+#         initialdir = "/home/hamza/Bureau"
+#     elif os_name == 'Windows':
+#         sys.path.append(r'C:\Users\Hamza\Desktop\TAL\Metrics_source_code')
+#         initialdir = r"C:\Users\Hamza\Desktop"
+#     return initialdir
+# which_os()
 
 
 class gui_class():
@@ -140,7 +157,7 @@ class gui_class():
         self.frame_3.pack(fill=BOTH, side=TOP)
         self.frame_padding_3.pack(fill=BOTH, side=TOP)
         # display other widgets:
-        ## display widgets in frame_1:
+        # display widgets in frame_1:
         self.reference_label.grid(row=0, column=0, sticky=W, padx=4, pady=2)
         self.path_reference.grid(row=0, column=2)
         self.import_reference_button.grid(row=0, column=4, padx=2, pady=4)
@@ -152,12 +169,12 @@ class gui_class():
         self.frame_ipadding_4.grid(rowspan=2, column=1)
         self.frame_ipadding_5.grid(rowspan=2, column=3)
         self.frame_ipadding_4.grid(rowspan=2, column=5)
-        ## display widgets in frame_2:
+        # display widgets in frame_2:
         self.radiobutton_title.pack(side=LEFT)
         self.frame_ipadding_3.pack(side=LEFT)
         for radiobutton in self.radiobutton_algorithms:
             radiobutton.pack(side=LEFT)
-        ## display widgets in frame_3:
+        # display widgets in frame_3:
         self.frame_ipadding_7.pack(side=LEFT)
         self.calcul_button.pack(side=LEFT)
         self.frame_ipadding_1.pack(side=LEFT)
@@ -182,11 +199,11 @@ class gui_class():
             path_reference_string = self.path_reference.get()
             if is_zipfile(path_reference_string):
                 try:
-                    with zipfile(path_reference_string) as my_zipfile:
+                    with ZipFile(path_reference_string) as my_zipfile:
                         for txtfile in my_zipfile.namelist():
                             try:
                                 with my_zipfile.open(txtfile) as f:
-                                    file_data = f.read()
+                                    file_data = f.read().decode('utf-8')
                                     references.append(file_data)
                             except IOError:
                                 showerror("Error", "Please use valide files")
@@ -202,7 +219,7 @@ class gui_class():
             else:
                 try:
                     with open(path_reference_string) as f:
-                        file_data = f.read()
+                        file_data = str(f.read())
                         references.append(file_data)
                 except IOError:
                     showerror("Error", "Please use valide file")
@@ -214,7 +231,7 @@ class gui_class():
             path_hypothesis_string = self.path_hypothesis.get()
             if is_zipfile(path_hypothesis_string):
                 try:
-                    with zipfile(path_hypothesis_string) as my_zipfile:
+                    with ZipFile(path_hypothesis_string) as my_zipfile:
                         files = my_zipfile.namelist()
                         nb_files = len(files)
                         if nb_files > 1:
@@ -224,7 +241,7 @@ class gui_class():
                         else:
                             try:
                                 with my_zipfile.open(txtfile) as f:
-                                    hypothesis = f.read()
+                                    hypothesis = f.read().decode('utf-8')
                             except IOError:
                                 showerror("Error", "Please use valide files")
                                 self.importfile(self.path_hypothesis,
@@ -284,7 +301,7 @@ def main():
     root = Tk()
     root.title("Notre Application")
     root.geometry("500x200+350+50")
-    app = gui_class(root, which_os())
+    app = gui_class(root, add_path())
     root.mainloop()
 
 
