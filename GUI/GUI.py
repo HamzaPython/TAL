@@ -17,16 +17,14 @@ def add_path():
 
     sys.path.append(code_folder_string)
     initialdir = TAL_folder_string
-
-    import fmeasure_score
-    import bleu_score
-    import nist_score
-    import wer_score
-
     return initialdir
 
 
 add_path()
+import fmeasure_score
+import bleu_score
+import nist_score
+import wer_score
 
 # def which_os():
 #     import platform
