@@ -328,7 +328,7 @@ BLEU qu'on va utiliser dans notre projet.
     \subsubsection{Initialisation:}\label{initialisation}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{n}{reference} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{my name is hamza jamal}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{reference} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{my name is hamza jamal}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{]}
         \PY{n}{candidate} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hamza jamal is a name of me}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
@@ -451,33 +451,25 @@ pénalisation:}\label{facteur-de-puxe9nalisation}
 \paragraph{- 1 phrase 1 référence:}\label{phrase-1-ruxe9fuxe9rence}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{translate}\PY{n+nn}{.}\PY{n+nn}{bleu\PYZus{}score} \PY{k}{import} \PY{n}{sentence\PYZus{}bleu}
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{translate}\PY{n+nn}{.}\PY{n+nn}{bleu\PYZus{}score} \PY{k}{import} \PY{n}{sentence\PYZus{}bleu}
         
         \PY{c+c1}{\PYZsh{} score = sentence\PYZus{}bleu(reference, candidate)}
         \PY{c+c1}{\PYZsh{}\PYZsh{} solutions:}
-        \PY{c+c1}{\PYZsh{}1\PYZhy{} préciser le n:}
+        \PY{c+c1}{\PYZsh{} 1\PYZhy{} préciser le n:}
         \PY{c+c1}{\PYZsh{} score = sentence\PYZus{}bleu(reference, candidate, weights=(0.5,0.5))}
         \PY{c+c1}{\PYZsh{} 2\PYZhy{} utiliser smoothing functions:}
         \PY{c+c1}{\PYZsh{} from nltk.translate.bleu\PYZus{}score import SmoothingFunction}
         \PY{c+c1}{\PYZsh{} my\PYZus{}smoothing\PYZus{}function = SmoothingFunction()}
         \PY{c+c1}{\PYZsh{} score = sentence\PYZus{}bleu(reference, candidate, smoothing\PYZus{}function=my\PYZus{}smoothing\PYZus{}function.method0)}
         \PY{c+c1}{\PYZsh{} 3\PYZhy{} utiliser emulate\PYZus{}multibleu}
-        \PY{n}{score} \PY{o}{=} \PY{n}{sentence\PYZus{}bleu}\PY{p}{(}\PY{n}{reference}\PY{p}{,} \PY{n}{candidate}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} score = sentence\PYZus{}bleu(reference, candidate, emulate\PYZus{}multibleu=True)}
         
         \PY{n+nb}{print}\PY{p}{(}\PY{n}{score}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-0.5555238068023582
-
-    \end{Verbatim}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-/home/hamza/anaconda3/lib/python3.6/site-packages/nltk/translate/bleu\_score.py:490: UserWarning: 
-Corpus/Sentence contains 0 counts of 3-gram overlaps.
-BLEU scores might be undesirable; use SmoothingFunction().
-  warnings.warn(\_msg)
+0.0
 
     \end{Verbatim}
 
